@@ -7,6 +7,7 @@ package myFrame1;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -203,10 +204,17 @@ public class AddCustomersForm extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
-            Statement stm = connection.createStatement();
-            String SQL="INSERT INTO Customer VALUES('"+idText.getText()+"','"+nameText.getText()+"','"+addressText.getText()+"','"+salaryText.getText()+"')";
-            int res = stm.executeUpdate(SQL);
-            if(res>0){
+            //Statement stm = connection.createStatement();
+            //String SQL="INSERT INTO Customer VALUES('"+idText.getText()+"','"+nameText.getText()+"','"+addressText.getText()+"','"+salaryText.getText()+"')";
+            String SQL = "INSERT INTO Customer VALUES(?,?,?,?)";
+            PreparedStatement stm = connection.prepareStatement(SQL);
+            stm.setObject(1, idText.getText());
+            stm.setObject(2, nameText.getText());
+            stm.setObject(3, addressText.getText());
+            stm.setObject(4, salaryText.getText());
+            int res = stm.executeUpdate();
+            //int res = stm.executeUpdate(SQL);
+            if (res > 0) {
                 JOptionPane.showMessageDialog(this, "Added Success");
             }
         } catch (ClassNotFoundException ex) {
