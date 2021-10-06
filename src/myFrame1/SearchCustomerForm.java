@@ -203,8 +203,9 @@ public class SearchCustomerForm extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+            //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             String SQL="SELECT * FROM Customer WHERE id='"+idText.getText()+"'";
             ResultSet rst = stm.executeQuery(SQL);

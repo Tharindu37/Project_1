@@ -202,8 +202,10 @@ public class AddCustomersForm extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+            //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            DBConnection ob=DBConnection.getInstance();
+            Connection connection=ob.getConnection();
             //Statement stm = connection.createStatement();
             //String SQL="INSERT INTO Customer VALUES('"+idText.getText()+"','"+nameText.getText()+"','"+addressText.getText()+"','"+salaryText.getText()+"')";
             String SQL = "INSERT INTO Customer VALUES(?,?,?,?)";

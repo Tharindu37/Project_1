@@ -183,8 +183,9 @@ public class UpdateCustomerForm extends javax.swing.JFrame {
 
     private void idTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTextActionPerformed
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+            //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             String SQL="SELECT * FROM Customer WHERE id='"+idText.getText()+"'";
             ResultSet rst = stm.executeQuery(SQL);
@@ -220,8 +221,9 @@ public class UpdateCustomerForm extends javax.swing.JFrame {
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+            //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             String SQL="UPDATE Customer SET name=?,address=?,salary=? WHERE id=?";
             PreparedStatement stm = connection.prepareStatement(SQL);
             stm.setObject(1, nameText.getText());
