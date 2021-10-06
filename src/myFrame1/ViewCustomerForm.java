@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -131,15 +132,20 @@ public class ViewCustomerForm extends javax.swing.JFrame {
         try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
-            Connection connection = DBConnection.getInstance().getConnection();
+            /*Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery("SELECT * FROM Customer");
+            ResultSet rst = stm.executeQuery("SELECT * FROM Customer");*/
+            ArrayList<Customer> cusomerList=CustomerController.getAllCustomers();
             DefaultTableModel dtm=(DefaultTableModel) customerTable.getModel();
             dtm.setRowCount(0);
-            while(rst.next()){
-                Object[] rowData={rst.getString("id"),rst.getString("name"),rst.getString("address"),rst.getDouble("salary")};
+            for(Customer customer:cusomerList){
+                Object[] rowData={customer.getId(),customer.getName(),customer.getAddress(),customer.getSalary()};
                 dtm.addRow(rowData);
             }
+            /*while(rst.next()){
+                Object[] rowData={rst.getString("id"),rst.getString("name"),rst.getString("address"),rst.getDouble("salary")};
+                dtm.addRow(rowData);
+            }*/
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "Driver Not Found");
         } catch (SQLException ex) {

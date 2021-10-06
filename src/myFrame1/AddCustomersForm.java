@@ -204,19 +204,26 @@ public class AddCustomersForm extends javax.swing.JFrame {
         try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
-            DBConnection ob=DBConnection.getInstance();
-            Connection connection=ob.getConnection();
+            //DBConnection ob=DBConnection.getInstance();
+            //Connection connection=ob.getConnection();
             //Statement stm = connection.createStatement();
             //String SQL="INSERT INTO Customer VALUES('"+idText.getText()+"','"+nameText.getText()+"','"+addressText.getText()+"','"+salaryText.getText()+"')";
-            String SQL = "INSERT INTO Customer VALUES(?,?,?,?)";
-            PreparedStatement stm = connection.prepareStatement(SQL);
-            stm.setObject(1, idText.getText());
-            stm.setObject(2, nameText.getText());
-            stm.setObject(3, addressText.getText());
-            stm.setObject(4, salaryText.getText());
-            int res = stm.executeUpdate();
+            //String SQL = "INSERT INTO Customer VALUES(?,?,?,?)";
+            //PreparedStatement stm = connection.prepareStatement(SQL);
+            //stm.setObject(1, idText.getText());
+            //stm.setObject(2, nameText.getText());
+            //stm.setObject(3, addressText.getText());
+            //stm.setObject(4, salaryText.getText());
+            //int res = stm.executeUpdate();
             //int res = stm.executeUpdate(SQL);
-            if (res > 0) {
+            String id=idText.getText();
+            String name=nameText.getText();
+            String address=addressText.getText();
+            double salary=Double.parseDouble(salaryText.getText());
+            Customer c1=new Customer(id,name,address,salary);
+            boolean isAdded = CustomerController.addCustomer(c1);
+            //boolean isAdded = CustomerController.addCustomer(id, name, address, salary);
+            if (isAdded) {
                 JOptionPane.showMessageDialog(this, "Added Success");
             }
         } catch (ClassNotFoundException ex) {

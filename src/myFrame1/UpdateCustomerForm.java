@@ -185,7 +185,7 @@ public class UpdateCustomerForm extends javax.swing.JFrame {
         try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
-            Connection connection = DBConnection.getInstance().getConnection();
+            /*Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             String SQL="SELECT * FROM Customer WHERE id='"+idText.getText()+"'";
             ResultSet rst = stm.executeQuery(SQL);
@@ -193,6 +193,19 @@ public class UpdateCustomerForm extends javax.swing.JFrame {
                 nameText.setText(rst.getString("name"));
                 addressText.setText(rst.getString("address"));
                 salaryText.setText(rst.getString("salary"));
+            }else{
+                JOptionPane.showMessageDialog(this, "Customer Not Found");
+            }
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Driver Not Found");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }*/
+        Customer customer = CustomerController.searchCustomer(idText.getText());
+            if (customer!=null) {
+                nameText.setText(customer.getName());
+                addressText.setText(customer.getAddress());
+                salaryText.setText(customer.getSalary()+"");
             }else{
                 JOptionPane.showMessageDialog(this, "Customer Not Found");
             }
@@ -223,15 +236,17 @@ public class UpdateCustomerForm extends javax.swing.JFrame {
         try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
-            Connection connection = DBConnection.getInstance().getConnection();
+            /*Connection connection = DBConnection.getInstance().getConnection();
             String SQL="UPDATE Customer SET name=?,address=?,salary=? WHERE id=?";
             PreparedStatement stm = connection.prepareStatement(SQL);
             stm.setObject(1, nameText.getText());
             stm.setObject(2, addressText.getText());
             stm.setObject(3, salaryText.getText());
             stm.setObject(4, idText.getText());
-            int rst = stm.executeUpdate();
-            if (rst>0) {
+            int rst = stm.executeUpdate();*/
+            Customer customer=new Customer(idText.getText(),nameText.getText(),addressText.getText(),Double.parseDouble(salaryText.getText()));
+            boolean isUpdated=CustomerController.upadateCustomer(customer);
+            if (isUpdated) {
                 JOptionPane.showMessageDialog(this, "Updated...");
             }else{
                 JOptionPane.showMessageDialog(this, "Customer Not Found");

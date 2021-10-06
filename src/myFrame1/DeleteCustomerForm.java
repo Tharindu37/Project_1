@@ -182,7 +182,7 @@ public class DeleteCustomerForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void idTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTextActionPerformed
-        try {
+        /*try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
             Connection connection = DBConnection.getInstance().getConnection();
@@ -193,6 +193,20 @@ public class DeleteCustomerForm extends javax.swing.JFrame {
                 nameText.setText(rst.getString("name"));
                 addressText.setText(rst.getString("address"));
                 salaryText.setText(rst.getString("salary"));
+            }else{
+                JOptionPane.showMessageDialog(this, "Customer Not Found");
+            }
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Driver Not Found");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }*/
+        try {
+            Customer customer = CustomerController.searchCustomer(idText.getText());
+            if (customer!=null) {
+                nameText.setText(customer.getName());
+                addressText.setText(customer.getAddress());
+                salaryText.setText(customer.getSalary()+"");
             }else{
                 JOptionPane.showMessageDialog(this, "Customer Not Found");
             }
@@ -223,11 +237,13 @@ public class DeleteCustomerForm extends javax.swing.JFrame {
         try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
-            Connection connection = DBConnection.getInstance().getConnection();
-            Statement stm = connection.createStatement();
-            String SQL="DELETE FROM Customer WHERE id='"+idText.getText()+"'";
-            int rst = stm.executeUpdate(SQL);
-            if(rst>0){
+            
+            //Connection connection = DBConnection.getInstance().getConnection();
+            //Statement stm = connection.createStatement();
+            //String SQL="DELETE FROM Customer WHERE id='"+idText.getText()+"'";
+            //int rst = stm.executeUpdate(SQL);
+            boolean isDeleted=CustomerController.deleteCustomer(idText.getText());
+            if(isDeleted){
                 JOptionPane.showMessageDialog(this, "Deleted...");
             }else{
                 JOptionPane.showMessageDialog(this, "Customer Not Found");
