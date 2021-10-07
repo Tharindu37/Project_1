@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -127,7 +128,7 @@ public class ViewItemForm extends javax.swing.JFrame {
         try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
-            Connection connection = DBConnection.getInstance().getConnection();
+            /*Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM item");
             DefaultTableModel dtm=(DefaultTableModel) itemTable.getModel();
@@ -135,7 +136,15 @@ public class ViewItemForm extends javax.swing.JFrame {
             while (rst.next()) {
                 Object[] rowData={rst.getString("code"),rst.getString("description"),rst.getDouble("unitPrice"),rst.getInt("qtyOnHand")};
                 dtm.addRow(rowData);
+            }*/
+            ArrayList<Item> itemList=ItemController.getAllItem();
+            DefaultTableModel dtm = (DefaultTableModel) itemTable.getModel();
+            dtm.setRowCount(0);
+            for (Item item : itemList) {
+                Object[] rowData={item.getClass(),item.getDescription(),item.getUnitPrice(),item.getQtyOnHand()};
+                dtm.addRow(rowData);
             }
+            
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "Driver Not Found...");
         } catch (SQLException ex) {

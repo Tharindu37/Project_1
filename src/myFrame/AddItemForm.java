@@ -165,15 +165,21 @@ public class AddItemForm extends javax.swing.JFrame {
         try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
-            Connection connection = DBConnection.getInstance().getConnection();
+            /*Connection connection = DBConnection.getInstance().getConnection();
             String SQL="INSERT INTO item VALUES(?,?,?,?)";
             PreparedStatement stm = connection.prepareStatement(SQL);
             stm.setObject(1, codeText.getText());
             stm.setObject(2, descriptionText.getText());
             stm.setObject(3, unitPriceText.getText());
             stm.setObject(4, qtyOnHandText.getText());
-            int res = stm.executeUpdate();
-            if(res>0){
+            int res = stm.executeUpdate();*/
+            String code=codeText.getText();
+            String description=descriptionText.getText();
+            double unitPrice=Double.parseDouble(unitPriceText.getText());
+            int qtyOnHand=Integer.parseInt(qtyOnHandText.getText());
+            Item c1=new Item(code,description,unitPrice,qtyOnHand);
+            boolean isAdded=ItemController.addItem(c1);
+            if(isAdded){
                 JOptionPane.showMessageDialog(this, "Added Susccess");
             }
         } catch (ClassNotFoundException ex) {

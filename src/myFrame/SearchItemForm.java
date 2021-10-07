@@ -164,14 +164,15 @@ public class SearchItemForm extends javax.swing.JFrame {
         try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
-            Connection connection = DBConnection.getInstance().getConnection();
+            /*Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             String SQL="SELECT * FROM item WHERE code='"+codeText.getText()+"'";
-            ResultSet rst = stm.executeQuery(SQL);
-            if(rst.next()){
-                descriptionText.setText(rst.getString("description"));
-                unitPriceText.setText(rst.getString("unitPrice"));
-                qtyOnHandText.setText(rst.getString("qtyOnHand"));
+            ResultSet rst = stm.executeQuery(SQL);*/
+            Item item=ItemController.searchItem(codeText.getText());
+            if(item!=null){
+                descriptionText.setText(item.getDescription());
+                unitPriceText.setText(item.getUnitPrice()+"");
+                qtyOnHandText.setText(item.getQtyOnHand()+"");
             }else{
                 JOptionPane.showMessageDialog(this, "Customer not Found");
             }

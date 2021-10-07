@@ -169,15 +169,17 @@ public class UpdateItemForm1 extends javax.swing.JFrame {
         try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
-            Connection connection = DBConnection.getInstance().getConnection();
+            /*Connection connection = DBConnection.getInstance().getConnection();
             String SQL="UPDATE item SET description=?,unitPrice=?,qtyOnHand=? WHERE code=?";
             PreparedStatement stm = connection.prepareStatement(SQL);
             stm.setObject(1, descriptionText.getText());
             stm.setObject(2, unitPriceText.getText());
             stm.setObject(3, qtyOnHandText.getText());
             stm.setObject(4 ,codeText.getText());
-            int rst = stm.executeUpdate();
-            if(rst>0){
+            int rst = stm.executeUpdate();*/
+            Item item=new Item(codeText.getText(),descriptionText.getText(),Double.parseDouble(unitPriceText.getText()),Integer.parseInt(qtyOnHandText.getText()));
+            boolean isUpdated=ItemController.updateItem(item);
+            if(isUpdated){
                 JOptionPane.showMessageDialog(this, "Update Success");
             }else{
                 JOptionPane.showMessageDialog(this, "Customer not found");
@@ -197,14 +199,19 @@ public class UpdateItemForm1 extends javax.swing.JFrame {
         try {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
-            Connection connection = DBConnection.getInstance().getConnection();
+            /*Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             String SQL="SELECT * FROM item WHERE code='"+codeText.getText()+"'";
             ResultSet rst = stm.executeQuery(SQL);
             if(rst.next()){
                 descriptionText.setText(rst.getString("description"));
                 unitPriceText.setText(rst.getString("unitPrice"));
-                qtyOnHandText.setText(rst.getString("qtyOnHand"));
+                qtyOnHandText.setText(rst.getString("qtyOnHand"));*/
+            Item item=ItemController.searchItem(codeText.getText());
+            if(item!=null){
+                descriptionText.setText(item.getDescription());
+                unitPriceText.setText(item.getUnitPrice()+"");
+                qtyOnHandText.setText(item.getQtyOnHand()+"");
             }else{
                 JOptionPane.showMessageDialog(this, "Customer not Found");
             }
