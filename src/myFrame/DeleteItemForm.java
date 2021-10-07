@@ -167,8 +167,9 @@ public class DeleteItemForm extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+            //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             String SQL="DELETE FROM item WHERE code='"+codeText.getText()+"'";
             int rst = stm.executeUpdate(SQL);
@@ -190,8 +191,9 @@ public class DeleteItemForm extends javax.swing.JFrame {
 
     private void codeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codeTextActionPerformed
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+            //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             String SQL="SELECT * FROM item WHERE code='"+codeText.getText()+"'";
             ResultSet rst = stm.executeQuery(SQL);

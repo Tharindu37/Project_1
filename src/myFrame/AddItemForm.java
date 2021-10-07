@@ -163,8 +163,9 @@ public class AddItemForm extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+            //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ThogaKade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             String SQL="INSERT INTO item VALUES(?,?,?,?)";
             PreparedStatement stm = connection.prepareStatement(SQL);
             stm.setObject(1, codeText.getText());
